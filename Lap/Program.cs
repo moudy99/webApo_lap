@@ -19,10 +19,22 @@ namespace Lap
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IproductRepository, ProductRepository>();
+            builder.Services.AddScoped<IcategoryRepository, CategoryRepository>();
 
             builder.Services.AddDbContext<Context>(options =>
             {
                 options.UseSqlServer("Data Source=.;Initial Catalog=WebApi__;Integrated Security=True;Encrypt=false;");
+            });
+
+            builder.Services.AddCors(options =>
+            {
+                // Here i can declare more than one policy 
+                options.AddPolicy("myPolicy_1", policy => policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+
+                /// Here i allow only the requests form the domain of FACEBOOK .????
+                //options.AddPolicy("myPolicy_1", policy => policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("WWW.facebook.com"));
+
+
             });
             var app = builder.Build();
 
@@ -33,8 +45,13 @@ namespace Lap
                 app.UseSwaggerUI();
             }
 
+            // To allow external access 
+            app.UseCors("myPolicy_1");
+
+
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
 

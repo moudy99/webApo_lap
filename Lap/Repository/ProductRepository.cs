@@ -37,6 +37,12 @@ namespace Lap.Repository
             context.SaveChanges();
         }
 
+        public Product getByIdAndName(int id, string name)
+        {
+            return context.Products.FirstOrDefault(p => p.Id == id && p.Name == name);
+
+        }
+
         public void updateProduct(int id, Product productmodel)
         {
             Product product = getByID(id);

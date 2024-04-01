@@ -10,9 +10,13 @@ namespace Lap.Repository
 
         void updateProduct(int id, Product product);
 
+        Product getByIdAndName(int id, string name);
+
         void Add(Product product);
 
         void deleteProduct(int id);
+
+
 
         void Save();
     }

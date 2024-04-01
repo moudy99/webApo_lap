@@ -59,6 +59,7 @@ namespace Lap.Controllers
                 return BadRequest(ModelState);
             }
         }
+
         [HttpDelete]
         public IActionResult delete(int id)
         {
@@ -75,5 +76,21 @@ namespace Lap.Controllers
 
         }
 
+
+        [HttpGet("{id:int}/{name}")]
+        public IActionResult getByIdAndName(int id, string name)
+        {
+            if (ModelState.IsValid)
+            {
+                Product p = productRepository.getByID(id);
+
+                if (p != null && p.Name == name)
+                {
+
+                    return Ok(p);
+                }
+            }
+            return BadRequest(ModelState);
+        }
     }
 }
