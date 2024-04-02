@@ -1,6 +1,7 @@
 ﻿using Lap.DTO;
 using Lap.Models;
 using Lap.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lap.Controllers
@@ -40,6 +41,7 @@ namespace Lap.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public IActionResult getAll()
         {
             List<GetCategoryWIthProductsDOT> Models = new List<GetCategoryWIthProductsDOT>();
